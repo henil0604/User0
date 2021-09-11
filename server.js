@@ -4,10 +4,12 @@ let app = require('./app');
 const env = require("./app/helpers/env");
 const RouterManager = require("./app/middlewares/RouterManager")
 const PORT = env("PORT") || 4141;
+const requestIp = require('request-ip');
 
 require("./app/helpers/Initialize_MongoDb")()
 
 
+app.use(requestIp.mw())
 app.use(require("./app/middlewares/hit"));
 app.use(require("./app/middlewares/RequestParser"));
 
