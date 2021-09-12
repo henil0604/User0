@@ -10,6 +10,14 @@ module.exports = async (req, res) => {
         // Adding UserIp into data
         req.body.createdBy = req.clientIp;
 
+        if (req.body.password && !req.body.authId) {
+            req.body.method = "regular"
+        } else if (!req.body.password && req.body.authId) {
+            req.body.method = req.body.method;
+        } else {
+            req.body.method = "regular"
+        }
+
         // Validating Data
         let data = await validationSchema.Register.validateAsync(req.body);
 
@@ -51,6 +59,7 @@ module.exports = async (req, res) => {
                 roles: newUser.roles,
                 userId: newUser.userId,
                 createdAt: newUser.createdAt,
+                method: newUser.method,
             }
         }
 
