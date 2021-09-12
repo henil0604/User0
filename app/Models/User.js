@@ -14,8 +14,7 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     createdAt: {
         type: Number,
@@ -41,6 +40,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    authId: {
+        type: String
+    },
+    method: {
+        type: String,
+        required: true,
     }
 })
 
@@ -49,9 +55,14 @@ UserSchema.pre("save", async function (next) {
     try {
 
         const salt = await bcrypt.genSalt(11);
-        const hashedPassword = await bcrypt.hash(this.password, salt);
 
-        this.password = hashedPassword;
+
+        if (this.method == "regular") {
+            this.password = await bcrypt.hash(this.password, salt);
+        } else {
+            this.authId = await bcrypt.hash(this.authId, salt);
+        }
+
 
         next();
 
