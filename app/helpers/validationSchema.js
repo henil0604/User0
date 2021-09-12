@@ -9,8 +9,7 @@ const Register = Joi.object({
         .required(),
 
     password: Joi.string()
-        .min(4)
-        .required(),
+        .min(4),
 
     email: Joi.string()
         .email()
@@ -19,8 +18,12 @@ const Register = Joi.object({
     roles: Joi.array(),
 
     createdBy: Joi.string()
-        .required()
+        .required(),
 
+    method: Joi.string()
+        .required(),
+
+    authId: Joi.string()
 })
 
 
