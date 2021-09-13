@@ -10,9 +10,9 @@ module.exports = [
         ]
     },
     {
-        path: "/role",
+        path: "/user",
         type: "router",
-        routes: require("./role.api.routes")
+        routes: require("./user.api.routes")
     },
     {
         path: "/register",
@@ -20,6 +20,14 @@ module.exports = [
         type: "hitpoint",
         middlewares: [
             require("../routes/api/register")
+        ]
+    },
+    {
+        path: "/login",
+        method: "POST",
+        type: "hitpoint",
+        middlewares: [
+            require("../routes/api/login")
         ]
     },
 ]
