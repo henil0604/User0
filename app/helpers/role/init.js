@@ -13,8 +13,6 @@ module.exports = async () => {
             name: "primary",
             permissions: [
                 "user.edit_account",
-                "user.login",
-                "user.logout",
                 "user.change_password",
                 "user.delete_account",
             ]
