@@ -4,6 +4,7 @@ const getUser = require("../../helpers/user/get");
 const bcrypt = require("bcrypt");
 const JWT = require("../../helpers/JWT")
 const updateUser = require("../../helpers/user/update");
+const env = require("../../helpers/env");
 
 module.exports = async (req, res) => {
     try {
@@ -116,10 +117,14 @@ module.exports = async (req, res) => {
             }
         }
 
+        res.cookie(env("ACCESS_TOKEN_COOKIE_NAME"), tokens.accessToken);
+        res.cookie(env("REFRESH_TOKEN_COOKIE_NAME"), tokens.accessToken);
+
         throw {
             status: "success",
             statusCode: 201,
             code: req.responseCode.LOGGED_IN,
+            message: "Logged In",
             data: {
                 ...tokens
             }
