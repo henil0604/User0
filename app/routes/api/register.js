@@ -50,6 +50,7 @@ module.exports = async (req, res) => {
             statusCode: 201,
             status: "success",
             code: req.responseCode.CREATED,
+            message: "User Registered",
             data: {
                 username: newUser.username,
                 email: newUser.email,
